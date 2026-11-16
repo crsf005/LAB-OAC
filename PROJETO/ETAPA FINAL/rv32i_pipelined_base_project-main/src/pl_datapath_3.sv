@@ -147,7 +147,7 @@ module pl_datapath (
         end else if (stall || pc_src) begin
             id_ex.alu_src   <= 1'b0;
             id_ex.alu_src_a <= 2'b00;
-            id_ex.mem_to_reg<= 1 me0;
+            id_ex.mem_to_reg<= 1'b0;
             id_ex.reg_write <= 1'b0;
             id_ex.mem_read  <= 1'b0;
             id_ex.mem_write <= 1'b0;

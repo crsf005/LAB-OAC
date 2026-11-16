@@ -5,7 +5,7 @@ module pl_sign_ext (
     output logic [31:0] ImmExt
 );
 
-    localparam LOAD   = 7 me0000011;
+    localparam LOAD   = 7'b0000011;
     localparam STORE  = 7'b0100011;
     localparam BRANCH = 7'b1100011;
     localparam OP_IMM = 7'b0010011;

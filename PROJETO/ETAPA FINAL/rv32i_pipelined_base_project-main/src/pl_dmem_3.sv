@@ -12,10 +12,12 @@ module pl_dmem (
 
     (* ram_init_file = "data.mif" *) logic [31:0] ram [0:255];
 
+	 // synthesis translate_off
     initial begin
         for (int i = 0; i < 256; i++) ram[i] = 32'h00000000;
         $readmemh("data.hex", ram);
     end
+	 // synthesis translate_on
    
 
     always_ff @(posedge clk) begin

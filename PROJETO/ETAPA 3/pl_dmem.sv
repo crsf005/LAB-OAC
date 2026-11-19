@@ -46,7 +46,8 @@ module pl_dmem (
         endcase
     end
 
-    always_ff @(posedge clk) begin
+    // Usa always @(posedge clk) para permitir a inicializacao via $readmemh no bloco initial
+    always @(posedge clk) begin
         if (MemWrite) ram[addr] <= new_word; // [Etapa 03] Grava a palavra montada (new_word) em vez de WriteData direto
     end
 

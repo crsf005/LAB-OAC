@@ -1,4 +1,3 @@
-
 // =============================================================================
 // pl_mmio.sv
 // Controlador de E/S Mapeada em Memoria -- DE2-115 (RV32I pipelined)
@@ -44,13 +43,21 @@ module pl_mmio (
 );
  
     // -------------------------------------------------------------------------
+    // Sinais internos da UART e do sequenciador de 4 bytes
+    // -------------------------------------------------------------------------
+    logic        tx_write;
+    logic        tx_busy;
+    logic [7:0]  rx_data;
+    logic        rx_valid;
+
+    logic [31:0] tx_word;       // palavra de 32 bits em transmissao
+    logic [1:0]  tx_byte_idx;   // indice do byte atual (0=LSB, 3=MSB)
+    logic        tx_word_busy;  // alto enquanto houver bytes a enviar
+    logic [7:0]  tx_byte;       // byte corrente entregue a UART
+
+    // -------------------------------------------------------------------------
     // Instancia da UART
     // -------------------------------------------------------------------------
-    logic       tx_write;
-    logic       tx_busy;
-    logic [7:0] rx_data;
-    logic       rx_valid;
- 
     pl_uart #(
         .CLK_HZ (10_000_000),   // clk da CPU = saida da PLL (10 MHz) -> CLKS_PER_BIT = 1041
         .BAUD   (9_600)
@@ -74,11 +81,6 @@ module pl_mmio (
     // tx_word_busy permanece alto enquanto houver bytes pendentes.
     // O CPU deve aguardar tx_busy == 0 (bit 9 de LW 0x410) antes de nova SW.
     // -------------------------------------------------------------------------
-    logic [31:0] tx_word;       // palavra de 32 bits em transmissao
-    logic [1:0]  tx_byte_idx;   // indice do byte atual (0=LSB, 3=MSB)
-    logic        tx_word_busy;  // alto enquanto houver bytes a enviar
-    logic [7:0]  tx_byte;       // byte corrente entregue a UART
- 
     always_comb begin
         case (tx_byte_idx)
             2'd0: tx_byte = tx_word[7:0];
@@ -164,4 +166,3 @@ module pl_mmio (
     end
  
 endmodule
- 

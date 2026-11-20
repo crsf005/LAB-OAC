@@ -24,7 +24,7 @@ Com a conclusão desta etapa, o núcleo passa a executar todo o conjunto base de
 
   * Comparações sem sinal: **`BLTU`** (*Branch if Less Than Unsigned*), **`BGEU`** (*Branch if Greater or Equal Unsigned*)
 
-* **Saltos Incondicionais (Tipo-J e Tipo-I):**
+* **Saltos Incondicionais (Tipo-J):**
 
   * **`JAL`** (*Jump and Link* — Opcode `7'b1101111`): salto relativo ao `PC` com salvamento do endereço de retorno (`PC + 4`) em `rd`.
 
